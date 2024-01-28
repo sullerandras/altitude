@@ -11,6 +11,9 @@
 
   <script>
     var intervalId;
+    function formatNumber(num) {
+      return num != null ? num.toFixed(2) : 'null';
+    }
     if ('geolocation' in navigator) {
       const options = {
         enableHighAccuracy: true,
@@ -20,14 +23,14 @@
       var f = function() {
         navigator.geolocation.getCurrentPosition(
           position => {
-            document.getElementById('altitude').innerHTML = `${position.coords.altitude.toFixed(2)} meters above sea level<br>`+
-            `${position.coords.latitude.toFixed(2)} degrees latitude<br>`+
-            `${position.coords.longitude.toFixed(2)} degrees longitude<br>`+
-            `accuracy: ${position.coords.accuracy.toFixed(2)} meters<br>`+
-            `altitude accuracy: ${position.coords.altitudeAccuracy.toFixed(2)} meters<br>`+
-            `heading: ${position.coords.heading.toFixed(2)} degrees<br>`+
-            `speed: ${position.coords.speed.toFixed(2)} meters/second<br>`+
-            `timestamp: ${position.timestamp}`;
+            document.getElementById('altitude').innerHTML = `${formatNumber(position.coords.altitude)} meters above sea level<br>`+
+            `${formatNumber(position.coords.latitude)} degrees latitude<br>`+
+            `${formatNumber(position.coords.longitude)} degrees longitude<br>`+
+            `accuracy: ${formatNumber(position.coords.accuracy)} meters<br>`+
+            `altitude accuracy: ${formatNumber(position.coords.altitudeAccuracy)} meters<br>`+
+            `heading: ${formatNumber(position.coords.heading)} degrees<br>`+
+            `speed: ${formatNumber(position.coords.speed)} meters/second<br>`+
+            `timestamp: ${formatNumber(position.timestamp)}`;
           },
           error => {
             console.error(error.message);
