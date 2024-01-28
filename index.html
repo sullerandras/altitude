@@ -30,7 +30,7 @@
             `altitude accuracy: ${formatNumber(position.coords.altitudeAccuracy)} meters<br>`+
             `heading: ${formatNumber(position.coords.heading)} degrees<br>`+
             `speed: ${3.6 * formatNumber(position.coords.speed)} km/h<br>`+
-            `timestamp: ${formatNumber(position.timestamp)}`;
+            `timestamp: ${new Date(position.timestamp)?.toISOString()}`;
           },
           error => {
             console.error(error.message);
