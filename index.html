@@ -10,17 +10,21 @@
   <p id="altitude"></p>
 
   <script>
+    var intervalId;
     if ('geolocation' in navigator) {
-      navigator.geolocation.getCurrentPosition(
-        position => {
-          const altitude = position.coords.altitude;
-          document.getElementById('altitude').innerText = `${altitude} meters above sea level`;
-        },
-        error => {
-          console.error(error.message);
-          document.getElementById('altitude').innerText = 'Unable to retrieve altitude';
-        }
-      );
+      var f = function() {
+        navigator.geolocation.getCurrentPosition(
+          position => {
+            const altitude = position.coords.altitude;
+            document.getElementById('altitude').innerText = `${altitude.toFixed(2)} meters above sea level`;
+          },
+          error => {
+            console.error(error.message);
+            document.getElementById('altitude').innerText = 'Unable to retrieve altitude';
+          }
+        );
+      }
+      intervalId = setInterval(f, 1000);
     } else {
       document.getElementById('altitude').innerText = 'Geolocation is not supported on your device';
     }
