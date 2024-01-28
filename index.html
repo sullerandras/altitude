@@ -12,16 +12,28 @@
   <script>
     var intervalId;
     if ('geolocation' in navigator) {
+      const options = {
+        enableHighAccuracy: true,
+        timeout: 5000,
+        maximumAge: 0,
+      };
       var f = function() {
         navigator.geolocation.getCurrentPosition(
           position => {
-            const altitude = position.coords.altitude;
-            document.getElementById('altitude').innerText = `${altitude.toFixed(2)} meters above sea level`;
+            document.getElementById('altitude').innerHTML = `${position.coords.altitude.toFixed(2)} meters above sea level<br>`+
+            `${position.coords.latitude.toFixed(2)} degrees latitude<br>`+
+            `${position.coords.longitude.toFixed(2)} degrees longitude<br>`+
+            `accuracy: ${position.coords.accuracy.toFixed(2)} meters<br>`+
+            `altitude accuracy: ${position.coords.altitudeAccuracy.toFixed(2)} meters<br>`+
+            `heading: ${position.coords.heading.toFixed(2)} degrees<br>`+
+            `speed: ${position.coords.speed.toFixed(2)} meters/second<br>`+
+            `timestamp: ${position.timestamp}`;
           },
           error => {
             console.error(error.message);
             document.getElementById('altitude').innerText = 'Unable to retrieve altitude';
-          }
+          },
+          options
         );
       }
       intervalId = setInterval(f, 1000);
