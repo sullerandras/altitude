@@ -29,7 +29,7 @@
             `accuracy: ${formatNumber(position.coords.accuracy)} meters<br>`+
             `altitude accuracy: ${formatNumber(position.coords.altitudeAccuracy)} meters<br>`+
             `heading: ${formatNumber(position.coords.heading)} degrees<br>`+
-            `speed: ${formatNumber(position.coords.speed)} meters/second<br>`+
+            `speed: ${3.6 * formatNumber(position.coords.speed)} km/h<br>`+
             `timestamp: ${formatNumber(position.timestamp)}`;
           },
           error => {
